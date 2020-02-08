@@ -1,8 +1,3 @@
-/*
-Drive.java
-Class meant to control the wheels of the robot
-*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -10,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 /**
- * Controls movement
+ * Controls movement via the wheels
  */
 public class Drive {
 

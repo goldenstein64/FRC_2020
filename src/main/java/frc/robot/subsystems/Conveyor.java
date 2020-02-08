@@ -1,7 +1,3 @@
-/*
-class that controls the conveyor using a CAN SparkMAX
-*/
-
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;

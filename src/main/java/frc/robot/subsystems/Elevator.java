@@ -1,7 +1,3 @@
-/*
-I have no idea what this is supposed to control ~,~
-*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
