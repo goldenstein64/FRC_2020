@@ -4,18 +4,23 @@ class that controls the conveyor using a CAN SparkMAX
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.CAN;
-import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+/**
+ * Controls the movement of the balls while inside the robot
+ */
 public class Conveyor {
 
-    //private static SparkMax motor = new SparkMax(deviceId);
+    private static CANSparkMax motor = new CANSparkMax(4, MotorType.kBrushless);
 
     private static double targetSpeed = 0;
     private static double speed = 0;
 
     public static void set(double speed) {
-
+        Conveyor.targetSpeed = speed;
+        Conveyor.speed = speed;
+        motor.set(speed);
     }
 
     public static void smoothSet(double speed) {

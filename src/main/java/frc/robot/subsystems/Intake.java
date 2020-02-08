@@ -1,10 +1,11 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.CAN;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Intake {
 
-    //private static CAN motor = new CAN(deviceId);
+    private static CANSparkMax motor = new CANSparkMax(5, MotorType.kBrushless);
 
     public static void setRunning(boolean isRunning) {
 
