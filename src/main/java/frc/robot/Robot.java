@@ -10,28 +10,24 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsystems.*;
 
-/*
- *
- * Assumed PWM ID's:
- * 1 = Spark                        Winch
- * 2 = Spark                        Elevator
+/* 
+ * PWM Devices:
+ * - 0: Spark Winch
+ * - 1: Spark Elevator
  * 
- * Assumed CAN ID's:
+ * CAN Devices:
+ * - 0: PDP
+ * - 1: PCM
+ * - 2: Talon SRX Drive Left
+ * - 3: Talon SRX Drive Right
+ * - 4: Victor SPX Drive Left
+ * - 5: Victor SPX Drive Right
+ * - 6: Spark MAX Motor Intake
+ * - 7: Spark MAX Motor Conveyor
  * 
- * 0 = Power Distribution Panel
- * 1 = PCM
- * 2 = Left Talon SRX               Drive
- * 3 = Left Victor SPX              Drive
- * 4 = Right Talon SRX              Drive
- * 5 = Right Victor SPX             Drive
- * 6 = Spark Max                    Intake
- * 7 = Spark Max                    Winch
- * 
- * Assumed PCM ID's:
- * 
- * 1, 2 = DoubleSolenoid            Gate
- * 3, 4 = DoubleSolenoid            Winch
- * 
+ * PCM Solenoids:
+ * - 01: Gate
+ * - 23: Winch Lock
  */
 
 /**
@@ -47,15 +43,9 @@ public class Robot extends TimedRobot {
    * for any initialization code.
    */
 
-  public static Class<Drive> Drive = Drive.class;
-  public static Class<Intake> Intake = Intake.class;
-  public static Class<Conveyor> Conveyor = Conveyor.class;
-  public static Class<Gate> Gate = Gate.class;
-  public static Class<Winch> Winch = Winch.class;
-  public static Class<Elevator> Elevator = Elevator.class;
-
   @Override
   public void robotInit() {
+    Drive.init();
   }
 
   @Override
@@ -68,6 +58,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    Interop.init();
   }
 
   @Override
