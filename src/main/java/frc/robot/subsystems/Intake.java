@@ -8,13 +8,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Intake {
 
-    private static CANSparkMax motor = new CANSparkMax(5, MotorType.kBrushless);
+    private static CANSparkMax motor = new CANSparkMax(6, MotorType.kBrushless);
 
-    public static void setRunning(boolean isRunning) {
-        if (isRunning) {
-
-        } else {
-            
-        }
+    public static void run(double speed) {
+        motor.set(speed);
     }
 }

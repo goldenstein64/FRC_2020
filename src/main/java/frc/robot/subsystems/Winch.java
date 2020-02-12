@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.Spark;
  */
 public class Winch {
     
-    private static Spark motor = new Spark(1);
-    private static DoubleSolenoid lock = new DoubleSolenoid(3, 4);
+    private static Spark motor = new Spark(0);
+    private static DoubleSolenoid lock = new DoubleSolenoid(0, 1);
 
     public static void extend() {
         // unlock it?

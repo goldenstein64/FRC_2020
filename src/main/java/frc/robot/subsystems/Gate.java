@@ -7,9 +7,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  */
 public class Gate {
 
-    private static DoubleSolenoid solenoid = new DoubleSolenoid(1, 2);
+    private static DoubleSolenoid solenoid = new DoubleSolenoid(2, 3);
 
     public static void setOpen(boolean isOpen) {
-        
+        if (isOpen) {
+            solenoid.set(DoubleSolenoid.Value.kForward);
+            // open the thing
+        } else {
+            // close the thing
+        }
     }
 }

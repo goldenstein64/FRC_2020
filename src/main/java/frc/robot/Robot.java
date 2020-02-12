@@ -11,23 +11,23 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsystems.*;
 
 /* 
- * PWM Devices:
- * - 0: Spark Winch
- * - 1: Spark Elevator
+ * PWM Devices:                       Subsystem:
+ * - 0: Spark                         Winch
+ * - 1: Spark                         Elevator
  * 
- * CAN Devices:
+ * CAN Devices:                       
  * - 0: PDP
  * - 1: PCM
- * - 2: Talon SRX Drive Left
- * - 3: Talon SRX Drive Right
- * - 4: Victor SPX Drive Left
- * - 5: Victor SPX Drive Right
- * - 6: Spark MAX Motor Intake
- * - 7: Spark MAX Motor Conveyor
+ * - 2: Talon SRX                     Drive (L)
+ * - 3: Talon SRX                     Drive (R)
+ * - 4: Victor SPX                    Drive (L)
+ * - 5: Victor SPX                    Drive (R)
+ * - 6: Spark MAX Motor               Intake
+ * - 7: Spark MAX Motor               Conveyor
  * 
  * PCM Solenoids:
- * - 01: Gate
- * - 23: Winch Lock
+ * - 01: Lock                         Winch
+ * - 23: Actuator                     Gate
  */
 
 /**
