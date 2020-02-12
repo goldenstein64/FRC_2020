@@ -19,12 +19,13 @@ import frc.robot.subsystems.*;
  * Assumed CAN ID's:
  * 
  * 0 = Power Distribution Panel
- * 1 = Left Talon SRX               Drive
- * 2 = Left Victor SPX              Drive
- * 3 = Right Talon SRX              Drive
- * 4 = Right Victor SPX             Drive
- * 5 = Spark Max                    Intake
- * 6 = Spark Max                    Winch
+ * 1 = PCM
+ * 2 = Left Talon SRX               Drive
+ * 3 = Left Victor SPX              Drive
+ * 4 = Right Talon SRX              Drive
+ * 5 = Right Victor SPX             Drive
+ * 6 = Spark Max                    Intake
+ * 7 = Spark Max                    Winch
  * 
  * Assumed PCM ID's:
  * 
