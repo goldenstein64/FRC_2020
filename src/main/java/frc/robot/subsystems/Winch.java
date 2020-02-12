@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Spark;
  */
 public class Winch {
     
-    private static Spark motor = Spark(1);
+    private static Spark motor = new Spark(1);
     private static DoubleSolenoid lock = new DoubleSolenoid(3, 4);
 
     public static void extend() {
