@@ -9,12 +9,15 @@ public class Gate {
 
     private static DoubleSolenoid solenoid = new DoubleSolenoid(2, 3);
 
-    public static void setOpen(boolean isOpen) {
-        if (isOpen) {
+    public static void setOpen(Boolean isOpen) {
+        if (isOpen == true) {
             solenoid.set(DoubleSolenoid.Value.kForward);
             // open the thing
-        } else {
+        } else if (isOpen == false) {
+            solenoid.set(DoubleSolenoid.Value.kReverse);
             // close the thing
+        } else if (isOpen == null) {
+            solenoid.set(DoubleSolenoid.Value.kOff)
         }
     }
 }

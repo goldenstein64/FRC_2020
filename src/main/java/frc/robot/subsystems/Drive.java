@@ -17,7 +17,14 @@ public class Drive {
     private static WPI_VictorSPX victorRight = new WPI_VictorSPX(5);
     private static Encoder encoderRight = new Encoder(3, 5);
 
+    private static double leftSpeed = 0;
+    private static double rightSpeed = 0;
+
     public static void init() {
+        talonLeft.configNeutralDeadband(0.05);
+        talonRight.configNeutralDeadband(0.05);
+        victorLeft.configNeutralDeadband(0.05);
+        victorRight.configNeutralDeadband(0.05);
 
         // make sure the motors are synced
         victorLeft.follow(talonLeft);
@@ -30,5 +37,8 @@ public class Drive {
 
     public static void tankDrive(double left, double right) {
 
+
+        talonLeft.set(left);
+        talonRight.set(right);
     }
 }
