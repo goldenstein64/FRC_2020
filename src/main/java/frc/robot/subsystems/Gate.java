@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.Robot;
 
 /**
  * Controls the gate in front of the conveyor
@@ -17,7 +18,7 @@ public class Gate {
             solenoid.set(DoubleSolenoid.Value.kReverse);
             // close the thing
         } else if (isOpen == null) {
-            solenoid.set(DoubleSolenoid.Value.kOff)
+            solenoid.set(DoubleSolenoid.Value.kOff);
         }
     }
 }

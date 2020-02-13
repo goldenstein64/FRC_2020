@@ -7,8 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsystems.*;
+
+import java.util.ArrayList;
 
 /* 
  * PWM Devices:                       Subsystem:
@@ -26,8 +29,8 @@ import frc.robot.subsystems.*;
  * - 7: Spark MAX Motor               Conveyor
  * 
  * PCM Solenoids:
- * - 01: Lock                         Winch
- * - 23: Actuator                     Gate
+ * - 0, 1: Lock                         Winch
+ * - 2, 3: Actuator                     Gate
  */
 
 /**
@@ -38,13 +41,16 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
+
+
+  public Compressor compressor = new Compressor();
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
-
   @Override
   public void robotInit() {
+    compressor.start();
     Drive.init();
   }
 
@@ -58,11 +64,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Interop.init();
+    Teleop.init();
   }
 
   @Override
   public void teleopPeriodic() {
+    Teleop.handleInput();
   }
 
   @Override

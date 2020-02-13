@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 /**
  * Controls movement via the wheels
@@ -31,14 +32,18 @@ public class Drive {
         victorRight.follow(talonRight);
         
         // set up the encoders
+        talonLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        talonRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
-        
+        talonLeft.setSensorPhase(false);
+        talonRight.setSensorPhase(true);
+
+        talonLeft.setSelectedSensorPosition(0, 0, 10);
+        talonRight.setSelectedSensorPosition(0, 0, 10);
     }
 
     public static void tankDrive(double left, double right) {
-
-
-        talonLeft.set(left);
-        talonRight.set(right);
+        leftSpeed = (left - leftSpeed) * 0.2 + leftSpeed;
+        rightSpeed = (right - rightSpeed) * 0.2 + rightSpeed;
     }
 }
