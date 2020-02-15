@@ -1,18 +1,16 @@
-/*
-Interfaces between robot and joysticks
-*/
-
-
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.*;
 
-public class Teleop {
+/**
+ * Interfaces between robot and joysticks
+ */
+public class TeleOp {
 
     private static Joystick joystick = new Joystick(0);
     private static POVButton dPadRight = new POVButton(joystick, 0);
@@ -21,6 +19,9 @@ public class Teleop {
     private static POVButton dPadDown = new POVButton(joystick, 270);
     private static  JoystickButton[] buttons = new JoystickButton[13];
     
+    /**
+     * called on robotInit to set up controller buttons
+     */
     public static void init() {
         for (int i = 0; i < 13; i++) {
             buttons[i] = new JoystickButton(joystick, i);
@@ -28,28 +29,75 @@ public class Teleop {
         }
     }
 
+    /**
+     * Called per teleopPeriodic to handle controller input and delegate it to subsystems.
+     */
     public static void handleInput() {
-        double leftSpeed = joystick.getRawAxis(1); // left Y
-        double rightSpeed = joystick.getRawAxis(3); // right Y
 
-        {
-            boolean dUp = dPadUp.get();
-            boolean dDown = dPadDown.get();
 
-            if (dUp && !dDown) {
+        { // Drive control logic
+            double leftSpeed = joystick.getRawAxis(1); // left Y
+            double rightSpeed = joystick.getRawAxis(3); // right Y
+            Drive.tankDrive(leftSpeed, rightSpeed);
+        }
+
+        { // Conveyor control logic
+            boolean rShoulderUp = buttons[8].get();
+            boolean rShoulderDown = buttons[6].get();
+
+            if (rShoulderUp && !rShoulderDown) {
                 Conveyor.smoothSet(1);
-            } else if (dDown && !dUp) {
+                Intake.run(1);
+            } else if (rShoulderDown && !rShoulderUp) {
                 Conveyor.smoothSet(-1);
             } else {
                 Conveyor.smoothSet(0);
             }
         }
 
-        
-        if (buttons[1].get()) {
-            
+        { // Elevator control logic
+            boolean lShoulderUp = buttons[7].get();
+            boolean lShoulderDown = buttons[5].get();
+
+            if (lShoulderUp && !lShoulderDown) {
+                Elevator.move(1);
+            } else if (lShoulderDown && !lShoulderUp) {
+                Elevator.move(-1);
+            } else {
+                // tell the elevator to stop
+            }
         }
 
-        Drive.tankDrive(leftSpeed, rightSpeed);
+        { // Winch control logic
+            boolean dUp = dPadUp.get();
+            boolean dDown = dPadDown.get();
+
+            if (dUp && !dDown) {
+                if (Winch.getLocked() != 0) {
+                    Winch.setLocked(false);
+                }
+                Winch.set(1); // extend
+            } else if (dDown && !dUp) {
+                if (Winch.getLocked() != 0) {
+                    Winch.setLocked(false);
+                }
+                Winch.set(-1); // retract
+            } else if (Winch.getLocked() != 1) {
+                Winch.setLocked(true);
+            }
+        }
+
+        { // Gate control logic
+            boolean buttonUp = buttons[4].get();
+            boolean buttonDown = buttons[2].get();
+
+            if (buttonUp && !buttonDown) {
+                Gate.setOpen(true);
+            } else if (buttonDown && !buttonUp) {
+                Gate.setOpen(false);
+            } else {
+                Gate.setOpen(null);
+            }
+        }
     }
 }

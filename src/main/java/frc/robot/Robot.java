@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsystems.*;
 
-import java.util.ArrayList;
-
 /* 
  * PWM Devices:                       Subsystem:
  * - 0: Spark                         Winch
@@ -48,10 +46,17 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
+
   @Override
   public void robotInit() {
     compressor.start();
     Drive.init();
+    Winch.init();
+  }
+
+  @Override
+  public void robotPeriodic() {
+    Auto.updatePeriod();
   }
 
   @Override
@@ -64,12 +69,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Teleop.init();
+    TeleOp.init();
+    // Auto.init();
   }
 
   @Override
   public void teleopPeriodic() {
-    Teleop.handleInput();
+    TeleOp.handleInput();
+    Auto.executeTele();
   }
 
   @Override
