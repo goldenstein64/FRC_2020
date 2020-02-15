@@ -42,11 +42,11 @@ public class Robot extends TimedRobot {
 
 
   public Compressor compressor = new Compressor();
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
-
   @Override
   public void robotInit() {
     compressor.start();
@@ -54,6 +54,9 @@ public class Robot extends TimedRobot {
     Winch.init();
   }
 
+  /**
+   * This function is run every "period," around every 0.02 seconds?
+   */
   @Override
   public void robotPeriodic() {
     Auto.updatePeriod();
