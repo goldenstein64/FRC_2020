@@ -8,21 +8,29 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Conveyor {
 
-    private static CANSparkMax motor = new CANSparkMax(7, MotorType.kBrushless);
+    private static CANSparkMax motor = new CANSparkMax(6, MotorType.kBrushless);
 
     private static double targetSpeed = 0;
     private static double speed = 0;
 
+    public static void init() {
+    }
+
     public static void set(double inputSpeed) {
         targetSpeed = inputSpeed;
         speed = inputSpeed;
-        motor.set(inputSpeed);
     }
 
     public static void smoothSet(double inputSpeed) {
         targetSpeed = inputSpeed;
-        speed = (targetSpeed - speed) * 0.2 + speed;
+    }
 
-        motor.set(speed);
+    public static void incr(double interval) {
+        speed = (targetSpeed - speed) * 0.2 + speed;
+        if (Math.abs(speed) >= 0.05) {
+            motor.set(speed);
+        } else {
+            motor.set(0);
+        }
     }
 } 

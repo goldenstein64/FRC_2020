@@ -36,6 +36,7 @@ public class Winch {
     }
 
     public static void set(double speed) {
+        // speed is already clamped so don't worry about it
         motorSpeed = speed;
     }
 

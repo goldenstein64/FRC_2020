@@ -32,6 +32,7 @@ public class Auto {
     public static void executeTele() {
         Winch.incr(currInterval);
         Gate.incr(currInterval);
+        Conveyor.incr(currInterval);
     }
 
     public static void execute() {

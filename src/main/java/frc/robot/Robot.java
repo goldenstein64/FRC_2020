@@ -17,14 +17,13 @@ import frc.robot.subsystems.*;
  * - 1: Spark                         Elevator
  * 
  * CAN Devices:                       
- * - 0: PDP
- * - 1: PCM
+ * - 0: Power Distribution Panel
+ * - 1: Pneumatic Control Module
  * - 2: Talon SRX                     Drive (L)
  * - 3: Talon SRX                     Drive (R)
  * - 4: Victor SPX                    Drive (L)
  * - 5: Victor SPX                    Drive (R)
- * - 6: Spark MAX Motor               Intake
- * - 7: Spark MAX Motor               Conveyor
+ * - 6: Spark MAX Motor               Conveyor
  * 
  * PCM Solenoids:
  * - 0, 1: Lock                         Winch
@@ -40,7 +39,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
 
-
+,
   public Compressor compressor = new Compressor();
 
   /**

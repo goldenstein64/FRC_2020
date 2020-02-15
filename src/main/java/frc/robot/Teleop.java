@@ -46,7 +46,6 @@ public class TeleOp {
 
             if (rShoulderUp && !rShoulderDown) {
                 Conveyor.smoothSet(1);
-                Intake.run(1);
             } else if (rShoulderDown && !rShoulderUp) {
                 Conveyor.smoothSet(-1);
             } else {
