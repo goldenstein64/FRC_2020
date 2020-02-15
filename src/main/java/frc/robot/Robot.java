@@ -61,10 +61,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Auto.init();
   }
 
   @Override
   public void autonomousPeriodic() {
+    Auto.execute();
   }
 
   @Override

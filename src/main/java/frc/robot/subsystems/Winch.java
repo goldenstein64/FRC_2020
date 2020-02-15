@@ -67,6 +67,8 @@ public class Winch {
 
         if (lockedValue == 1 && motorSpeed != 0) {
             motor.set(motorSpeed);
+        } else if (lockedValue != 1) {
+            lockAction = true;
         }
     }
 }

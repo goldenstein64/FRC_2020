@@ -14,6 +14,10 @@ public class Auto {
 
     private static double currInterval = 0;
 
+    public static void init() {
+
+    }
+
     public static void updatePeriod() {
         double nextPeriod = Timer.getFPGATimestamp();
         double interval = lastPeriod - nextPeriod;
@@ -21,8 +25,16 @@ public class Auto {
         currInterval = interval;
     }
 
+    public static double getPeriod() {
+        return currInterval;
+    }
+
     public static void executeTele() {
         Winch.incr(currInterval);
         Gate.incr(currInterval);
+    }
+
+    public static void execute() {
+
     }
 }

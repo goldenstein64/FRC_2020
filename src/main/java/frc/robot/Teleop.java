@@ -41,7 +41,7 @@ public class TeleOp {
             Drive.tankDrive(leftSpeed, rightSpeed);
         }
 
-        { // Conveyor control logic
+        { // Conveyor and Intake control logic
             boolean rShoulderUp = buttons[8].get();
             boolean rShoulderDown = buttons[6].get();
 
@@ -99,5 +99,7 @@ public class TeleOp {
                 Gate.setOpen(null);
             }
         }
+
+
     }
 }
