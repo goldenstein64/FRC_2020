@@ -38,8 +38,7 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-
-,
+  
   public Compressor compressor = new Compressor();
 
   /**
