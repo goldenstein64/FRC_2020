@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
 import frc.robot.Robot;
 
 /**
@@ -49,15 +47,15 @@ public class Winch {
     }
 
     public static void incr(double interval) {
-        Value solenoidValue;
+        DoubleSolenoid.Value solenoidValue;s
         if (lockAction != null) {
             interval *= lockAction ? 1 : -1;
-            solenoidValue = lockAction ? Value.kForward : Value.kReverse;
+            solenoidValue = lockAction ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
 
             lockedValue += interval/LOCKED_DURATION;
             lockedValue = clamp(lockedValue, 0, 1);
         } else {
-            solenoidValue = Value.kOff;
+            solenoidValue = DoubleSolenoid.Value.kOff;
         }
 
         lock.set(solenoidValue);

@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import frc.robot.Robot;
 
@@ -31,15 +30,15 @@ public class Gate {
     }
 
     public static void incr(double interval) {
-        Value solenoidValue;
+        DoubleSolenoid.Value solenoidValue;
         if (openAction != null) {
             interval *= openAction ? 1 : -1;
-            solenoidValue = openAction ? Value.kForward : Value.kReverse;
+            solenoidValue = openAction ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
 
             openValue += interval/OPEN_INTERVAL;
             openValue = clamp(openValue, 0, 1);
         } else {
-            solenoidValue = Value.kOff;
+            solenoidValue = DoubleSolenoid.Value.kOff;
         }
 
         solenoid.set(solenoidValue);

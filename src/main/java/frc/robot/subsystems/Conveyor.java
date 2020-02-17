@@ -22,7 +22,7 @@ public class Conveyor {
     }
 
     public static void smoothSet(double inputSpeed) {
-        targetSpeed = inputSpeed;
+        targetSpeed = speed = inputSpeed;
     }
 
     public static void incr(double interval) {

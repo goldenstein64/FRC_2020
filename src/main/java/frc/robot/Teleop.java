@@ -93,8 +93,6 @@ public class TeleOp {
                 Gate.setOpen(true);
             } else if (buttonDown && !buttonUp) {
                 Gate.setOpen(false);
-            } else {
-                Gate.setOpen(null);
             }
         }
 
