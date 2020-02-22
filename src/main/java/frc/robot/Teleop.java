@@ -61,7 +61,7 @@ public class TeleOp {
             } else if (lShoulderDown && !lShoulderUp) {
                 Elevator.set(-1);
             } else {
-                // tell the elevator to stop
+                Elevator.set(0);
             }
         }
 

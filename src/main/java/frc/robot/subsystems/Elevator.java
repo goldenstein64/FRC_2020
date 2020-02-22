@@ -10,7 +10,7 @@ public class Elevator {
     private static Spark motor = new Spark(2);
 
     public static void set(double speed) {
-        System.out.println(speed);
+        // System.out.println(speed);
         motor.set(speed);
     }
 }
