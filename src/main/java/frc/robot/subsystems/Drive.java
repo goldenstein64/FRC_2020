@@ -10,16 +10,23 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
  */
 public class Drive {
 
-    private static WPI_TalonSRX talonLeft = new WPI_TalonSRX(2);
-    private static WPI_VictorSPX victorLeft = new WPI_VictorSPX(4);
-    private static Encoder encoderLeft = new Encoder(2, 4); // these are output channels, not input channels
+    private static WPI_TalonSRX talonLeft = new WPI_TalonSRX(1);
+    private static WPI_VictorSPX victorLeft = new WPI_VictorSPX(2);
+    private static Encoder encoderLeft = new Encoder(1, 2); // these are output channels, not input channels
 
     private static WPI_TalonSRX talonRight = new WPI_TalonSRX(3);
-    private static WPI_VictorSPX victorRight = new WPI_VictorSPX(5);
-    private static Encoder encoderRight = new Encoder(3, 5);
+    private static WPI_VictorSPX victorRight = new WPI_VictorSPX(4);
+    private static Encoder encoderRight = new Encoder(3, 4);
 
-    private static double leftSpeed = 0;
-    private static double rightSpeed = 0;
+    private static class left {
+        public static double targetSpeed = 0;
+        public static double speed = 0;
+    }
+
+    private static class right {
+        public static double targetSpeed = 0;
+        public static double speed = 0;
+    }
 
     public static void init() {
         talonLeft.configNeutralDeadband(0.05);
@@ -31,6 +38,11 @@ public class Drive {
         victorLeft.follow(talonLeft);
         victorRight.follow(talonRight);
         
+        talonLeft.setInverted(true);
+        victorLeft.setInverted(true);
+
+        talonRight.setInverted(false);
+        victorRight.setInverted(false);
         // set up the encoders
         talonLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
         talonRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -42,8 +54,21 @@ public class Drive {
         talonRight.setSelectedSensorPosition(0, 0, 10);
     }
 
-    public static void tankDrive(double left, double right) {
-        leftSpeed = (left - leftSpeed) * 0.2 + leftSpeed;
-        rightSpeed = (right - rightSpeed) * 0.2 + rightSpeed;
+    public static void set(double leftInput, double rightInput) {
+        left.targetSpeed = left.speed = leftInput;
+        right.targetSpeed = right.speed = rightInput;
+    }
+
+    public static void smoothSet(double leftInput, double rightInput) {
+        left.targetSpeed = leftInput;
+        right.targetSpeed = rightInput;
+    }
+
+    public static void incr(double interval) {
+        left.speed = (left.targetSpeed - left.speed) * 0.2 + left.speed;
+        right.speed = (right.targetSpeed - right.speed) * 0.2 + right.speed;
+
+        talonLeft.set(left.speed);
+        talonRight.set(right.speed);
     }
 }

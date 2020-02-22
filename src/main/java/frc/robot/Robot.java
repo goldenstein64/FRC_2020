@@ -13,21 +13,21 @@ import frc.robot.subsystems.*;
 
 /* 
  * PWM Devices:                       Subsystem:
- * - 0: Spark                         Winch
  * - 1: Spark                         Elevator
+ * - 2: Spark                         Winch
  * 
  * CAN Devices:                       
  * - 0: Power Distribution Panel
- * - 1: Pneumatic Control Module
- * - 2: Talon SRX                     Drive (L)
+ * - 1: Talon SRX                     Drive (L)
+ * - 2: Victor SPX                    Drive (L)
  * - 3: Talon SRX                     Drive (R)
- * - 4: Victor SPX                    Drive (L)
- * - 5: Victor SPX                    Drive (R)
- * - 6: Spark MAX Motor               Conveyor
+ * - 4: Victor SPX                    Drive (R)
+ * - 5: Spark MAX                     Conveyor
+ * - 6: Pneumatic Control Module
  * 
  * PCM Solenoids:
- * - 0, 1: Lock                         Winch
- * - 2, 3: Actuator                     Gate
+ * - 1: Actuator                     Gate
+ * - 2: Lock                         Winch
  */
 
 /**

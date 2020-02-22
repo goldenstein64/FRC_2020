@@ -33,14 +33,13 @@ public class TeleOp {
      */
     public static void handleInput() {
 
-
         { // Drive control logic
             double leftSpeed = joystick.getRawAxis(1); // left Y
             double rightSpeed = joystick.getRawAxis(3); // right Y
-            Drive.tankDrive(leftSpeed, rightSpeed);
+            Drive.smoothSet(leftSpeed, rightSpeed);
         }
 
-        { // Conveyor and Intake control logic
+        { // Conveyor control logic
             boolean rShoulderUp = buttons[8].get();
             boolean rShoulderDown = buttons[6].get();
 
@@ -58,9 +57,9 @@ public class TeleOp {
             boolean lShoulderDown = buttons[5].get();
 
             if (lShoulderUp && !lShoulderDown) {
-                Elevator.move(1);
+                Elevator.set(1);
             } else if (lShoulderDown && !lShoulderUp) {
-                Elevator.move(-1);
+                Elevator.set(-1);
             } else {
                 // tell the elevator to stop
             }
@@ -79,7 +78,9 @@ public class TeleOp {
                 if (Winch.getLocked() != 0) {
                     Winch.setLocked(false);
                 }
+                Elevator.set(-1);
                 Winch.set(-1); // retract
+
             } else if (Winch.getLocked() != 1) {
                 Winch.setLocked(true);
             }

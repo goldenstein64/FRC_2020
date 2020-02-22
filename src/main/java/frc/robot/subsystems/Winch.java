@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 
 import frc.robot.Robot;
@@ -10,10 +10,11 @@ import frc.robot.Robot;
  */
 public class Winch {
 
-    private static final double LOCKED_DURATION = 0.2;
+    private static final double LOCKED_DURATION = 0.1;
+    private static final double UNLOCKED_DURATION = 0.05;
     
-    private static Spark motor = new Spark(0);
-    private static DoubleSolenoid lock = new DoubleSolenoid(0, 1);
+    private static Spark motor = new Spark(3);
+    private static Solenoid lock = new Solenoid(1);
 
     /**
      * 0 is unlocked,
@@ -43,19 +44,20 @@ public class Winch {
     }
 
     public static void setLocked(boolean isLocked) {
-        lockAction = isLocked;
+        if ((lockedValue != 1 || !isLocked) && (lockedValue != 0 || isLocked)) {
+            lockAction = isLocked;
+        }
     }
 
     public static void incr(double interval) {
-        DoubleSolenoid.Value solenoidValue;s
+        Boolean solenoidValue = false;
         if (lockAction != null) {
-            interval *= lockAction ? 1 : -1;
-            solenoidValue = lockAction ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
+            interval /= lockAction ? LOCKED_DURATION : -UNLOCKED_DURATION;
+            solenoidValue = lockAction;
 
-            lockedValue += interval/LOCKED_DURATION;
-            lockedValue = clamp(lockedValue, 0, 1);
+            lockedValue += clamp(lockedValue + interval, 0, 1);
         } else {
-            solenoidValue = DoubleSolenoid.Value.kOff;
+            solenoidValue = false;
         }
 
         lock.set(solenoidValue);

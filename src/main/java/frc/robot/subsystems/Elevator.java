@@ -7,9 +7,10 @@ import edu.wpi.first.wpilibj.Spark;
  */
 public class Elevator {
     
-    private static Spark motor = new Spark(1);
+    private static Spark motor = new Spark(2);
 
-    public static void move(double speed) {
+    public static void set(double speed) {
+        System.out.println(speed);
         motor.set(speed);
     }
 }
