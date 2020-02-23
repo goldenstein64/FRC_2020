@@ -37,6 +37,14 @@ public class TeleOp {
             double leftSpeed = joystick.getRawAxis(1); // left Y
             double rightSpeed = joystick.getRawAxis(3); // right Y
             Drive.smoothSet(leftSpeed, rightSpeed);
+
+            boolean mode = buttons[9].get();
+            if (mode) { // make the button only switch once until it is not pressed again
+                Drive.switchInverted();
+                Drive.setInvertDebounce(true);
+            } else if (Drive.getInvertDebounce()) {
+                Drive.setInvertDebounce(false);
+            }
         }
 
         { // Conveyor control logic

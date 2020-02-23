@@ -28,6 +28,17 @@ public class Drive {
         public static double speed = 0;
     }
 
+    private static boolean isInverted = false;
+    private static boolean invertDebounce = false;
+
+    public static void setInvertDebounce(boolean newBool) {
+        invertDebounce = newBool;
+    }
+
+    public static boolean getInvertDebounce() {
+        return invertDebounce;
+    }
+
     public static void init() {
         talonLeft.configNeutralDeadband(0.05);
         talonRight.configNeutralDeadband(0.05);
@@ -52,6 +63,15 @@ public class Drive {
 
         talonLeft.setSelectedSensorPosition(0, 0, 10);
         talonRight.setSelectedSensorPosition(0, 0, 10);
+    }
+
+    public static void switchInverted() {
+        isInverted = !isInverted;
+
+        talonLeft.setInverted(!isInverted);
+        victorLeft.setInverted(!isInverted);
+        talonRight.setInverted(isInverted);
+        victorRight.setInverted(isInverted);
     }
 
     public static void set(double leftInput, double rightInput) {
