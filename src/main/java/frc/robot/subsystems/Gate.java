@@ -9,9 +9,9 @@ import frc.robot.Robot;
  */
 public class Gate {
 
-    private static final double OPEN_INTERVAL = 1;
+    private static final double OPEN_INTERVAL = 0.1;
 
-    private static DoubleSolenoid solenoid = new DoubleSolenoid(2, 3);
+    private static DoubleSolenoid solenoid = new DoubleSolenoid(0, 3);
 
     private static double openValue = 0;
     private static Boolean openAction = null;
@@ -41,6 +41,7 @@ public class Gate {
             solenoidValue = DoubleSolenoid.Value.kOff;
         }
 
+        //System.out.println(solenoidValue.toString());
         solenoid.set(solenoidValue);
 
         if (openValue == 0 || openValue == 1) {

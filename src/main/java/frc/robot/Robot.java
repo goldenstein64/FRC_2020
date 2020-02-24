@@ -23,7 +23,7 @@ import frc.robot.subsystems.*;
  * - 3: Talon SRX                     Drive (R)
  * - 4: Victor SPX                    Drive (R)
  * - 5: Spark MAX                     Conveyor
- * - 6: Pneumatic Control Module
+ * - 0: Pneumatic Control Module
  * 
  * PCM Solenoids:
  * - 1: Actuator                     Gate
@@ -39,7 +39,10 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   
-  public Compressor compressor = new Compressor();
+  private boolean autoInited = false;
+  private boolean teleOpInited = false;
+
+  public Compressor compressor = new Compressor(0);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -47,7 +50,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    compressor.start();
     Drive.init();
     Winch.init();
   }
@@ -62,7 +64,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    Auto.init();
+    //compressor.stop();
+    if (!autoInited) {
+      autoInited = true;
+      Auto.init();
+    }
   }
 
   @Override
@@ -72,8 +78,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    TeleOp.init();
-    // Auto.init();
+    compressor.stop();
+    if (!teleOpInited) {
+      teleOpInited = true;
+      TeleOp.init();
+    }
+    if (!autoInited) {
+      autoInited = true;
+      Auto.init();
+    }
   }
 
   @Override

@@ -15,12 +15,12 @@ public class Auto {
     private static double currInterval = 0;
 
     public static void init() {
-
+        
     }
 
     public static void updatePeriod() {
         double nextPeriod = Timer.getFPGATimestamp();
-        double interval = lastPeriod - nextPeriod;
+        double interval = nextPeriod - lastPeriod;
         lastPeriod = nextPeriod;
         currInterval = interval;
     }
@@ -31,7 +31,7 @@ public class Auto {
 
     public static void executeTele() {
         Drive.incr(currInterval);
-        Winch.incr(currInterval);
+        //Winch.incr(currInterval);
         Gate.incr(currInterval);
         Conveyor.incr(currInterval);
     }
