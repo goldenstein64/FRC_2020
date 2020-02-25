@@ -79,20 +79,20 @@ public class Teleop {
             boolean dDown = dPadDown.get();
             double lockedValue = Winch.getLocked();
 
-            System.out.println(lockedValue);
+            //System.out.println(lockedValue);
 
-            /*if (dUp && !dDown) {
-                System.out.println("going up");
+            if (dDown && !dUp) {
+                //System.out.println("going down");
                 if (lockedValue != 0) {
                     Winch.setLocked(false);
                 }
-                Winch.set(1); // extend
-            } else */ if (dDown && !dUp) {
-                System.out.println("going down");
+                Winch.set(0.5); // extend
+            } else if (dUp && !dDown) {
+                //System.out.println("going up");
                 if (lockedValue != 0) {
                     Winch.setLocked(false);
                 }
-                Winch.set(0.5); // retract
+                Winch.set(-0.5); // retract
             } else {
                 Winch.set(0);
                 if (lockedValue != 1) {

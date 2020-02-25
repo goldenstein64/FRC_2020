@@ -50,25 +50,33 @@ public class Winch {
     }
 
     public static void incr(double interval) {
-        Boolean solenoidValue = false;
+        Boolean solenoidValue = true;
         if (lockAction != null) {
-            interval /= lockAction ? -LOCKED_DURATION : UNLOCKED_DURATION;
+            interval /= lockAction ? LOCKED_DURATION : -UNLOCKED_DURATION;
             solenoidValue = lockAction;
 
             lockedValue = clamp(lockedValue + interval, 0, 1);
         } else {
-            solenoidValue = false;
+            if (lockedValue == 0) {
+                solenoidValue = false;
+            } else if (lockedValue == 1) {
+                solenoidValue = true;
+            } else {
+                // this should never happen >.>
+                System.out.println("Solenoid should be set to a value!");
+            }
         }
 
-        //lock.set(solenoidValue);
+        lock.set(solenoidValue);
 
-        System.out.print("lockedValue = ");
-        System.out.println(lockedValue);
-        if (lockedValue == 1 && motorSpeed != 0) {
-            System.out.print("Setting motor to ");
-            System.out.println(motorSpeed);
+        //System.out.print("lockedValue = ");
+        //System.out.println(lockedValue);
+        if (lockedValue == 0 && motorSpeed != 0) {
+            //System.out.print("Setting motor to ");
+            //System.out.println(motorSpeed);
             motor.set(motorSpeed);
         } else if (lockedValue != 1) {
+            motor.set(0);
             lockAction = true;
         }
     }

@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Conveyor {
 
-    private static CANSparkMax motor = new CANSparkMax(7, MotorType.kBrushless);
+    private static CANSparkMax motor = new CANSparkMax(5, MotorType.kBrushless);
 
     private static double targetSpeed = 0;
     private static double speed = 0;
