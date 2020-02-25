@@ -18,8 +18,6 @@ public class Drive {
     private static WPI_VictorSPX victorRight = new WPI_VictorSPX(4);
     private static Encoder encoderRight = new Encoder(3, 4);
 
-    private static boolean isInverted = false;
-
     private static class left {
         public static double targetSpeed = 0;
         public static double speed = 0;
@@ -28,6 +26,17 @@ public class Drive {
     private static class right {
         public static double targetSpeed = 0;
         public static double speed = 0;
+    }
+
+    private static boolean isInverted = false;
+    private static boolean invertDebounce = false;
+
+    public static void setInvertDebounce(boolean newBool) {
+        invertDebounce = newBool;
+    }
+
+    public static boolean getInvertDebounce() {
+        return invertDebounce;
     }
 
     public static void init() {
@@ -57,11 +66,11 @@ public class Drive {
         talonRight.setSelectedSensorPosition(0, 0, 10);
     }
 
-    public static void swapInverted() {
+    public static void switchInverted() {
         isInverted = !isInverted;
+
         talonLeft.setInverted(!isInverted);
         victorLeft.setInverted(!isInverted);
-
         talonRight.setInverted(isInverted);
         victorRight.setInverted(isInverted);
     }
