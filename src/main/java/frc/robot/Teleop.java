@@ -16,8 +16,10 @@ public class Teleop {
     private static POVButton dPadLeft = new POVButton(joystick, 270);
     private static POVButton dPadUp = new POVButton(joystick, 0);
     private static POVButton dPadDown = new POVButton(joystick, 180);
-    private static  JoystickButton[] buttons = new JoystickButton[13];
-    
+    private static JoystickButton[] buttons = new JoystickButton[13];
+
+    private static boolean intensityDebounce = false;
+
     /**
      * called on robotInit to set up controller buttons
      */
@@ -45,6 +47,15 @@ public class Teleop {
             } else if (Drive.getInvertDebounce()) {
                 Drive.setInvertDebounce(false);
             }
+
+            boolean intensity = buttons[10].get();
+            if (intensity && !intensityDebounce) {
+                intensityDebounce = true;
+                // change intensity of things
+            } else if (intensityDebounce) {
+                intensityDebounce = false;
+                // change intensity of things
+            }
         }
 
         { // Conveyor control logic
@@ -65,7 +76,7 @@ public class Teleop {
             boolean lShoulderDown = buttons[5].get();
 
             if (lShoulderUp && !lShoulderDown) {
-                Elevator.set(0.25);
+                Elevator.set(1);
             } else if (lShoulderDown && !lShoulderUp) {
                 Elevator.set(-1);
             } else {
@@ -77,27 +88,23 @@ public class Teleop {
         { // Winch control logic
             boolean dUp = dPadUp.get();
             boolean dDown = dPadDown.get();
-            double lockedValue = Winch.getLocked();
-
-            //System.out.println(lockedValue);
 
             if (dDown && !dUp) {
-                //System.out.println("going down");
-                if (lockedValue != 0) {
-                    Winch.setLocked(false);
-                }
-                Winch.set(0.5); // extend
+                Winch.set(1); // retracts winch to stay on
             } else if (dUp && !dDown) {
-                //System.out.println("going up");
-                if (lockedValue != 0) {
-                    Winch.setLocked(false);
-                }
-                Winch.set(-0.5); // retract
+                Winch.set(-1); // extends winch out to grab
             } else {
                 Winch.set(0);
-                if (lockedValue != 1) {
-                    Winch.setLocked(true);
-                }
+            }
+
+            boolean dLeft = dPadLeft.get();
+            boolean dRight = dPadRight.get();
+            if (dLeft && !dRight) {
+                Winch.setLocked(true);
+
+            } else {
+                Winch.setLocked(false);
+                // turn it off
             }
         }
         
@@ -111,8 +118,6 @@ public class Teleop {
                 Gate.setOpen(true);
             } else if (buttonDown && !buttonUp) {
                 Gate.setOpen(false);
-            } else {
-
             }
         }
 

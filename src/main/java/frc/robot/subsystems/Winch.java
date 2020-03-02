@@ -20,14 +20,19 @@ public class Winch {
      * 0 is unlocked,
      * 1 is locked.
      * There will most likely be a middle ground between locking and unlocking
+     * starts unlocked
      */
-    private static double lockedValue = 1;
+    private static double lockedValue = 0;
     private static Boolean lockAction = null;
 
     private static double motorSpeed = 0;
 
+    private static boolean winchUsed = false;
+
     public static void init() {
-        //motor.setBounds(1, 0.05, 0, -0.05, -1);
+        // problem code?
+        motor.setBounds(1, 0.05, 0, -0.05, -1);
+        lock.set(false);
     }
 
     private static double clamp(double n, double min, double max) {
@@ -35,6 +40,18 @@ public class Winch {
     }
 
     public static void set(double speed) {
+        if (speed != 0 && lockedValue != 0) {
+            winchUsed = true;
+            setLocked(false);
+        }
+        if (winchUsed) {
+            if (speed == 0) {
+                setLocked(true);
+            } else {
+                setLocked(false);
+            }
+        }
+
         // speed is already clamped so don't worry about it
         motorSpeed = speed;
     }
@@ -63,19 +80,15 @@ public class Winch {
                 solenoidValue = true;
             } else {
                 // this should never happen >.>
-                System.out.println("Solenoid should be set to a value!");
+                // System.out.println("Solenoid should be set to a value!");
             }
         }
 
         lock.set(solenoidValue);
 
-        //System.out.print("lockedValue = ");
-        //System.out.println(lockedValue);
         if (lockedValue == 0 && motorSpeed != 0) {
-            //System.out.print("Setting motor to ");
-            //System.out.println(motorSpeed);
             motor.set(motorSpeed);
-        } else if (lockedValue != 1) {
+        } else if (lockedValue != 1 && winchUsed) {
             motor.set(0);
             lockAction = true;
         }

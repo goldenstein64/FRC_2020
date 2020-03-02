@@ -9,7 +9,8 @@ import frc.robot.Robot;
  */
 public class Gate {
 
-    private static final double OPEN_INTERVAL = 0.1;
+    private static final double OPEN_INTERVAL = 0.25;
+    private static final double CLOSE_INTERVAL = 0.5;
 
     private static DoubleSolenoid solenoid = new DoubleSolenoid(0, 3);
 
@@ -33,10 +34,10 @@ public class Gate {
     public static void incr(double interval) {
         DoubleSolenoid.Value solenoidValue;
         if (openAction != null) {
-            interval *= openAction ? 1 : -1;
+            interval /= openAction ? OPEN_INTERVAL : -CLOSE_INTERVAL;
             solenoidValue = openAction ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
 
-            openValue = clamp(openValue + interval/OPEN_INTERVAL, 0, 1);
+            openValue = clamp(openValue + interval, 0, 1);
         } else {
             solenoidValue = DoubleSolenoid.Value.kOff;
         }

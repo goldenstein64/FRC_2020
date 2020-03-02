@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
       autoInited = true;
       Auto.init();
     }
+    Auto.start();
   }
 
   @Override
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    compressor.stop();
+    // compressor.stop();
     if (!teleOpInited) {
       teleOpInited = true;
       Teleop.init();
