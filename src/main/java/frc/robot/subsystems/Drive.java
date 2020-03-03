@@ -37,10 +37,10 @@ public class Drive {
     }
 
     public static void init() {
-        talonLeft.configNeutralDeadband(0.1);
-        talonRight.configNeutralDeadband(0.1);
-        victorLeft.configNeutralDeadband(0.1);
-        victorRight.configNeutralDeadband(0.1);
+        talonLeft.configNeutralDeadband(0.075);
+        talonRight.configNeutralDeadband(0.075);
+        victorLeft.configNeutralDeadband(0.075);
+        victorRight.configNeutralDeadband(0.075);
 
         // make sure the motors are synced
         victorLeft.follow(talonLeft);
@@ -70,10 +70,10 @@ public class Drive {
     public static void switchInverted() {
         isInverted = !isInverted;
 
-        talonLeft.setInverted(!isInverted);
-        victorLeft.setInverted(!isInverted);
-        talonRight.setInverted(isInverted);
-        victorRight.setInverted(isInverted);
+        talonLeft.setInverted(isInverted);
+        victorLeft.setInverted(isInverted);
+        talonRight.setInverted(!isInverted);
+        victorRight.setInverted(!isInverted);
     }
 
     public static void set(double leftInput, double rightInput) {
@@ -104,7 +104,7 @@ public class Drive {
         left.speed = (left.targetSpeed - left.speed) * 0.2 + left.speed;
         right.speed = (right.targetSpeed - right.speed) * 0.2 + right.speed;
 
-        talonLeft.set(left.speed);
-        talonRight.set(right.speed);
+        talonLeft.set(left.speed * 0.75);
+        talonRight.set(right.speed * 0.75);
     }
 }

@@ -19,6 +19,7 @@ public class Teleop {
     private static JoystickButton[] buttons = new JoystickButton[13];
 
     private static boolean intensityDebounce = false;
+    private static boolean invertDebounce = false;
 
     /**
      * called on robotInit to set up controller buttons
@@ -41,11 +42,11 @@ public class Teleop {
             Drive.smoothSet(leftSpeed, rightSpeed);
 
             boolean mode = buttons[9].get();
-            if (mode) { // make the button only switch once until it is not pressed again
+            if (mode && !invertDebounce) { // make the button only switch once until it is not pressed again
                 Drive.switchInverted();
-                Drive.setInvertDebounce(true);
-            } else if (Drive.getInvertDebounce()) {
-                Drive.setInvertDebounce(false);
+                invertDebounce = true;
+            } else if (invertDebounce) {
+                invertDebounce = false;
             }
 
             boolean intensity = buttons[10].get();

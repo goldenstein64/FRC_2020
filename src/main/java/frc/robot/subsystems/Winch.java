@@ -85,9 +85,8 @@ public class Winch {
         }
 
         lock.set(solenoidValue);
-
         if (lockedValue == 0 && motorSpeed != 0) {
-            motor.set(motorSpeed);
+            motor.set(motorSpeed * 0.25);
         } else if (lockedValue != 1 && winchUsed) {
             motor.set(0);
             lockAction = true;
