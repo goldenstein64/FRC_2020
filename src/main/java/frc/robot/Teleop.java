@@ -91,13 +91,14 @@ public class Teleop {
             boolean dDown = dPadDown.get();
 
             if (dDown && !dUp) {
-                Winch.set(1); // retracts winch to stay on
+                Winch.set(1); // retracts winch to grab
             } else if (dUp && !dDown) {
-                Winch.set(-1); // extends winch out to grab
+                Winch.set(-1); // extends winch out to reach
             } else {
                 Winch.set(0);
             }
 
+            /*
             boolean dLeft = dPadLeft.get();
             boolean dRight = dPadRight.get();
             if (dLeft && !dRight) {
@@ -107,6 +108,7 @@ public class Teleop {
                 Winch.setLocked(false);
                 // turn it off
             }
+            // */
         }
         
 

@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsystems.*;
 
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.cameraserver.CameraServer;
+
 /* 
  * PWM Devices:                       Subsystem:
  * - 1: Spark                         Elevator
@@ -44,6 +47,8 @@ public class Robot extends TimedRobot {
 
   public Compressor compressor = new Compressor(0);
 
+  public CameraServer camera = CameraServer.getInstance();
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -52,6 +57,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     Drive.init();
     Winch.init();
+    camera.startAutomaticCapture();
   }
 
   /**

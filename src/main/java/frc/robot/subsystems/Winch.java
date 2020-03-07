@@ -10,8 +10,8 @@ import frc.robot.Robot;
  */
 public class Winch {
 
-    private static final double LOCKED_DURATION = 0.1;
-    private static final double UNLOCKED_DURATION = 0.05;
+    private static final double LOCKED_DURATION = 0.05;
+    private static final double UNLOCKED_DURATION = 0.1;
     
     private static Spark motor = new Spark(3);
     private static Solenoid lock = new Solenoid(7);
@@ -84,7 +84,8 @@ public class Winch {
             }
         }
 
-        lock.set(solenoidValue);
+        lock.set(!solenoidValue);
+
         if (lockedValue == 0 && motorSpeed != 0) {
             motor.set(motorSpeed * 0.25);
         } else if (lockedValue != 1 && winchUsed) {
