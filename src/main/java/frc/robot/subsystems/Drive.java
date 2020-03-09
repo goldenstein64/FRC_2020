@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
  */
 public class Drive {
 
+    private static final double SPEED_MODIFIER = 0.6;
+
     private static WPI_TalonSRX talonLeft = new WPI_TalonSRX(1);
     private static WPI_VictorSPX victorLeft = new WPI_VictorSPX(2);
 
@@ -72,8 +74,13 @@ public class Drive {
 
         talonLeft.setInverted(isInverted);
         victorLeft.setInverted(isInverted);
+
         talonRight.setInverted(!isInverted);
         victorRight.setInverted(!isInverted);
+
+        WPI_TalonSRX temp = talonLeft;
+        talonLeft = talonRight;
+        talonRight = temp;
     }
 
     public static void set(double leftInput, double rightInput) {
@@ -104,7 +111,9 @@ public class Drive {
         left.speed = (left.targetSpeed - left.speed) * 0.2 + left.speed;
         right.speed = (right.targetSpeed - right.speed) * 0.2 + right.speed;
 
-        talonLeft.set(left.speed * 0.75);
-        talonRight.set(right.speed * 0.75);
+        double lSign = Math.signum(left.speed);
+        double rSign = Math.signum(right.speed);
+        talonLeft.set(lSign * Math.pow(left.speed, 2) * SPEED_MODIFIER);
+        talonRight.set(rSign * Math.pow(right.speed, 2) * SPEED_MODIFIER);
     }
 }

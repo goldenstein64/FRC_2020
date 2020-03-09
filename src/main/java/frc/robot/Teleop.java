@@ -45,7 +45,7 @@ public class Teleop {
             if (mode && !invertDebounce) { // make the button only switch once until it is not pressed again
                 Drive.switchInverted();
                 invertDebounce = true;
-            } else if (invertDebounce) {
+            } else if (!mode && invertDebounce) {
                 invertDebounce = false;
             }
 
@@ -72,14 +72,15 @@ public class Teleop {
             }
         }
 
+        
         { // Elevator control logic
             boolean lShoulderUp = buttons[7].get();
             boolean lShoulderDown = buttons[5].get();
 
             if (lShoulderUp && !lShoulderDown) {
-                Elevator.set(1);
-            } else if (lShoulderDown && !lShoulderUp) {
                 Elevator.set(-1);
+            } else if (lShoulderDown && !lShoulderUp) {
+                Elevator.set(1);
             } else {
                 Elevator.set(0);
             }
@@ -98,13 +99,13 @@ public class Teleop {
                 Winch.set(0);
             }
 
-            /*
+            //
             boolean dLeft = dPadLeft.get();
             boolean dRight = dPadRight.get();
             if (dLeft && !dRight) {
                 Winch.setLocked(true);
 
-            } else {
+            } else if (dRight && !dLeft) {
                 Winch.setLocked(false);
                 // turn it off
             }

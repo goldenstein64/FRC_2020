@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 
 /**
- * I don't know what this does yet
+ * Controls the lift for the winch
  */
 public class Elevator {
     

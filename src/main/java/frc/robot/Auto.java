@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 
 import frc.robot.subsystems.*;
-import frc.robot.Robot;
+//import frc.robot.Robot;
 
 /**
  * Implements any autonomous actions done by the robot
@@ -21,9 +21,10 @@ public class Auto {
 			inited = true;
 			// do thing
 		}
+		start();
 	}
 
-	public static void start() {
+	private static void start() {
 		
 	}
 
@@ -38,7 +39,7 @@ public class Auto {
 		return currInterval;
 	}
 
-	public static void executeTele() {
+	public static void runIncr() {
 		Drive.incr(currInterval);
 		Winch.incr(currInterval);
 		Gate.incr(currInterval);
@@ -46,10 +47,11 @@ public class Auto {
 	}
 
 	public static void execute() {
-		if (Drive.getConvertedValue(false) < 10) { // if sensor picks up less than 10 feet,
-			Drive.smoothSet(0.5, 0.5);
+		//System.out.println(Drive.getConvertedValue(false));
+		if (Drive.getConvertedValue(false) < 36) { // if sensor picks up less than 10 feet,
+			Drive.set(1, 1);
 		} else {
-			Drive.smoothSet(0, 0);
+			Drive.set(0, 0);
 		}
 	}
 }

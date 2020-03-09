@@ -71,16 +71,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //compressor.stop();
-    if (!autoInited) {
-      autoInited = true;
-      Auto.init();
-    }
-    Auto.start();
+    Auto.init();
   }
 
   @Override
   public void autonomousPeriodic() {
     Auto.execute();
+    Auto.runIncr();
   }
 
   @Override
@@ -99,7 +96,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Teleop.handleInput();
-    Auto.executeTele();
+    Auto.runIncr();
   }
 
   @Override

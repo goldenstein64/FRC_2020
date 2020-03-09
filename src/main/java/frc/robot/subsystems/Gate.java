@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-import frc.robot.Robot;
+//import frc.robot.Robot;
 
 /**
  * Controls the gate in front of the conveyor
