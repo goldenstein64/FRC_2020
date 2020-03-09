@@ -11,6 +11,8 @@ import frc.robot.subsystems.*;
  */
 public class Teleop {
 
+    private static boolean inited = false;
+
     private static Joystick joystick = new Joystick(0);
     private static POVButton dPadRight = new POVButton(joystick, 90);
     private static POVButton dPadLeft = new POVButton(joystick, 270);
@@ -25,9 +27,11 @@ public class Teleop {
      * called on robotInit to set up controller buttons
      */
     public static void init() {
-        for (int i = 0; i < 13; i++) {
-            buttons[i] = new JoystickButton(joystick, i);
-
+        if (!inited) {
+            inited = true;
+            for (int i = 0; i < 13; i++) {
+                buttons[i] = new JoystickButton(joystick, i);
+            }
         }
     }
 
@@ -74,13 +78,15 @@ public class Teleop {
 
         
         { // Elevator control logic
+            double speedMod = 1;
+
             boolean lShoulderUp = buttons[7].get();
             boolean lShoulderDown = buttons[5].get();
 
             if (lShoulderUp && !lShoulderDown) {
-                Elevator.set(-1);
+                Elevator.set(-speedMod);
             } else if (lShoulderDown && !lShoulderUp) {
-                Elevator.set(1);
+                Elevator.set(speedMod);
             } else {
                 Elevator.set(0);
             }

@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 //import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -41,13 +42,12 @@ import edu.wpi.first.cameraserver.CameraServer;
  * project.
  */
 public class Robot extends TimedRobot {
-  
-  private boolean autoInited = false;
-  private boolean teleOpInited = false;
 
   public Compressor compressor = new Compressor(0);
 
   public CameraServer camera = CameraServer.getInstance();
+
+  public AnalogGyro gyro = new AnalogGyro(0);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -83,14 +83,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     // compressor.stop();
-    if (!teleOpInited) {
-      teleOpInited = true;
-      Teleop.init();
-    }
-    if (!autoInited) {
-      autoInited = true;
-      Auto.init();
-    }
+    Teleop.init();
+    Auto.init();
   }
 
   @Override
