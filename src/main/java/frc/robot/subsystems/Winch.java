@@ -104,9 +104,9 @@ public class Winch {
         lock.set(solenoidValue);
         //*/
 
-        System.out.print(String.valueOf(lockedValue) + ", ");
-        System.out.print(String.valueOf(motorSpeed) + ", ");
-        System.out.println(winchUsed);
+        //System.out.print(String.valueOf(lockedValue) + ", ");
+        //System.out.print(String.valueOf(motorSpeed) + ", ");
+        //System.out.println(winchUsed);
         if (lockedValue == 0 && motorSpeed != 0) {
             //System.out.println(motorSpeed);
             motor.set(motorSpeed);

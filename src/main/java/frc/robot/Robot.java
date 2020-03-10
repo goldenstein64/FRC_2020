@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 
   public CameraServer camera = CameraServer.getInstance();
 
-  public AnalogGyro gyro = new AnalogGyro(0);
+  //public AnalogGyro gyro = new AnalogGyro(0);
 
   /**
    * This function is run when the robot is first started up and should be used

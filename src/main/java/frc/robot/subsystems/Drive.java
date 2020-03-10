@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 /**
  * Controls movement via the wheels
@@ -69,6 +70,13 @@ public class Drive {
         talonRight.setSelectedSensorPosition(0, 0, 10);
     }
 
+    public static void setMode(NeutralMode neutralMode) {
+        talonLeft.setNeutralMode(neutralMode);
+        victorLeft.setNeutralMode(neutralMode);
+        talonRight.setNeutralMode(neutralMode);
+        victorRight.setNeutralMode(neutralMode);
+    }
+
     public static void switchInverted() {
         isInverted = !isInverted;
 
@@ -89,11 +97,15 @@ public class Drive {
     }
 
     public static void smoothSet(double leftInput, double rightInput) {
-        left.targetSpeed = leftInput;
-        right.targetSpeed = rightInput;
+        double lSign = Math.signum(leftInput);
+        double rSign = Math.signum(rightInput);
+
+        System.out.println(String.valueOf(Math.pow(leftInput, 2)) + ", " + String.valueOf(Math.pow(rightInput, 2)));
+        left.targetSpeed = lSign * Math.pow(leftInput, 2) * SPEED_MODIFIER;
+        right.targetSpeed = rSign * Math.pow(rightInput, 2) * SPEED_MODIFIER;
     }
 
-    public static int getSensorValue(boolean isLeft) {
+    private static int getSensorValue(boolean isLeft) {
         WPI_TalonSRX talon;
         if (isLeft) {
             talon = talonLeft;
@@ -111,9 +123,9 @@ public class Drive {
         left.speed = (left.targetSpeed - left.speed) * 0.2 + left.speed;
         right.speed = (right.targetSpeed - right.speed) * 0.2 + right.speed;
 
-        double lSign = Math.signum(left.speed);
-        double rSign = Math.signum(right.speed);
-        talonLeft.set(lSign * Math.pow(left.speed, 2) * SPEED_MODIFIER);
-        talonRight.set(rSign * Math.pow(right.speed, 2) * SPEED_MODIFIER);
+        //System.out.println(String.valueOf(left.speed) + ", " + String.valueOf(right.speed));
+
+        talonLeft.set(left.speed);
+        talonRight.set(right.speed);
     }
 }

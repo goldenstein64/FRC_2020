@@ -18,6 +18,7 @@ public class Teleop {
     private static POVButton dPadLeft = new POVButton(joystick, 270);
     private static POVButton dPadUp = new POVButton(joystick, 0);
     private static POVButton dPadDown = new POVButton(joystick, 180);
+    private static POVButton[] dPads = new POVButton[4];
     private static JoystickButton[] buttons = new JoystickButton[13];
 
     private static boolean intensityDebounce = false;
@@ -31,6 +32,9 @@ public class Teleop {
             inited = true;
             for (int i = 0; i < 13; i++) {
                 buttons[i] = new JoystickButton(joystick, i);
+            }
+            for (int i = 0; i < 4; i++) {
+                dPads[i] = new POVButton(joystick, 90*i);
             }
         }
     }
@@ -59,7 +63,6 @@ public class Teleop {
                 // change intensity of things
             } else if (intensityDebounce) {
                 intensityDebounce = false;
-                // change intensity of things
             }
         }
 
@@ -94,6 +97,10 @@ public class Teleop {
 
         
         { // Winch control logic
+
+            //    180
+            //270     90
+            //     0
             boolean dUp = dPadUp.get();
             boolean dDown = dPadDown.get();
 
