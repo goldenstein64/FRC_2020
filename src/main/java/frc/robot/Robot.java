@@ -43,62 +43,62 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class Robot extends TimedRobot {
 
-  public Compressor compressor = new Compressor(0);
+	public Compressor compressor = new Compressor(0);
 
-  public CameraServer camera = CameraServer.getInstance();
+	public CameraServer camera = CameraServer.getInstance();
 
-  //public AnalogGyro gyro = new AnalogGyro(0);
+	// public AnalogGyro gyro = new AnalogGyro(0);
 
-  /**
-   * This function is run when the robot is first started up and should be used
-   * for any initialization code.
-   */
-  @Override
-  public void robotInit() {
-    Drive.init();
-    Winch.init();
-    camera.startAutomaticCapture();
-  }
+	/**
+	 * This function is run when the robot is first started up and should be used
+	 * for any initialization code.
+	 */
+	@Override
+	public void robotInit() {
+		Drive.init();
+		Winch.init();
+		camera.startAutomaticCapture();
+	}
 
-  /**
-   * This function is run every "period," around every 0.02 seconds?
-   */
-  @Override
-  public void robotPeriodic() {
-    Auto.updatePeriod();
-  }
+	/**
+	 * This function is run every "period," around every 0.02 seconds?
+	 */
+	@Override
+	public void robotPeriodic() {
+		Auto.updatePeriod();
+	}
 
-  @Override
-  public void autonomousInit() {
-    //compressor.stop();
-    Auto.init();
-  }
+	@Override
+	public void autonomousInit() {
+		// compressor.stop();
+		Auto.init();
+	}
 
-  @Override
-  public void autonomousPeriodic() {
-    Auto.execute();
-    Auto.runIncr();
-  }
+	@Override
+	public void autonomousPeriodic() {
+		Auto.execute();
+		Auto.runIncr();
+	}
 
-  @Override
-  public void teleopInit() {
-    // compressor.stop();
-    Teleop.init();
-    Auto.init();
-  }
+	@Override
+	public void teleopInit() {
+		// compressor.stop();
+		Teleop.init();
+		Auto.init();
+	}
 
-  @Override
-  public void teleopPeriodic() {
-    Teleop.handleInput();
-    Auto.runIncr();
-  }
+	@Override
+	public void teleopPeriodic() {
+		Teleop.handleInput();
+		Auto.runIncr();
+	}
 
-  @Override
-  public void testInit() {
-  }
+	@Override
+	public void testInit() {
+	}
 
-  @Override
-  public void testPeriodic() {
-  }
+	@Override
+	public void testPeriodic() {
+	}
 
 }

@@ -9,45 +9,45 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  */
 public class Gate {
 
-    private static final double OPEN_INTERVAL = 0.25;
-    private static final double CLOSE_INTERVAL = 0.5;
+	private static final double OPEN_INTERVAL = 0.25;
+	private static final double CLOSE_INTERVAL = 0.5;
 
-    private static DoubleSolenoid solenoid = new DoubleSolenoid(0, 3);
+	private static DoubleSolenoid solenoid = new DoubleSolenoid(0, 3);
 
-    private static double openValue = 0;
-    private static Boolean openAction = null;
+	private static double openValue = 0;
+	private static Boolean openAction = null;
 
-    private static double clamp(double n, double min, double max) {
-        return Math.max(Math.min(n, max), min);
-    }
+	private static double clamp(double n, double min, double max) {
+		return Math.max(Math.min(n, max), min);
+	}
 
-    public static double getOpen() {
-        return openValue;
-    }
+	public static double getOpen() {
+		return openValue;
+	}
 
-    public static void setOpen(boolean isOpen) {
-        if ((openValue != 1 || !isOpen) && (openValue != 0 || isOpen)) {
-            openAction = isOpen;
-        }
-    }
+	public static void setOpen(boolean isOpen) {
+		if ((openValue != 1 || !isOpen) && (openValue != 0 || isOpen)) {
+			openAction = isOpen;
+		}
+	}
 
-    public static void incr(double interval) {
-        DoubleSolenoid.Value solenoidValue;
-        if (openAction != null) {
-            interval /= openAction ? OPEN_INTERVAL : -CLOSE_INTERVAL;
-            solenoidValue = openAction ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
+	public static void incr(double interval) {
+		DoubleSolenoid.Value solenoidValue;
+		if (openAction != null) {
+			interval /= openAction ? OPEN_INTERVAL : -CLOSE_INTERVAL;
+			solenoidValue = openAction ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse;
 
-            openValue = clamp(openValue + interval, 0, 1);
-        } else {
-            solenoidValue = DoubleSolenoid.Value.kOff;
-        }
+			openValue = clamp(openValue + interval, 0, 1);
+		} else {
+			solenoidValue = DoubleSolenoid.Value.kOff;
+		}
 
-        //System.out.println(solenoidValue.toString());
-        solenoid.set(solenoidValue);
+		// System.out.println(solenoidValue.toString());
+		solenoid.set(solenoidValue);
 
-        if (openValue == 0 || openValue == 1) {
-            openAction = null;
-        }
+		if (openValue == 0 || openValue == 1) {
+			openAction = null;
+		}
 
-    }
+	}
 }
